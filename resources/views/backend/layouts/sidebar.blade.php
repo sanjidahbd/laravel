@@ -48,13 +48,13 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="inbox-email.html" class="sidebar-link">
+                                    <a href="/product" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
                                         <span class="hide-menu">All Products </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="inbox-email-detail.html" class="sidebar-link">
+                                    <a href="/product/create" class="sidebar-link">
                                         <i class="mdi mdi-email-alert"></i>
                                         <span class="hide-menu"> Add Products </span>
                                     </a>
