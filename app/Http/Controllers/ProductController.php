@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 
 class ProductController extends Controller
@@ -107,6 +108,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+         $imagePath=public_path($product->image);
+         unlink($imagePath);
+        $product->delete();
+        return redirect()->route('product.index')->with('success','Successfully Deleted');
+
     }
 }
