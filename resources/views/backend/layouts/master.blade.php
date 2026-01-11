@@ -9,10 +9,23 @@
     <div id="main-wrapper">
         
     <!-- Header Include -->
+   
+   @if(Auth::guard('web')->check())
       @include ("backend.layouts.header")
-       
+      @elseif(Auth::guard('admin')->check())
+         @include ("backend.layouts.adminHeader")
+      @elseif(Auth::guard('manager')->check())
+         @include ("backend.layouts.managerHeader")
+       @endif
     <!--Sidebar Include -->
-    @include("backend.layouts.sidebar")
+     @if(Auth::guard('web')->check())
+      @include ("backend.layouts.sidebar")
+      @elseif(Auth::guard('admin')->check())
+         @include ("backend.layouts.adminSidebar")
+      @elseif(Auth::guard('manager')->check())
+         @include ("backend.layouts.managerSidebar")
+       @endif
+   
 
 
       <!--content-->

@@ -9,15 +9,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url('')}}/assets/images/favicon.png">
     <title>AdminBite admin Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
-    <link href="dist/css/style.min.css" rel="stylesheet">
+    <link href="{{url('')}}/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="{{url('')}}/https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="{{url('')}}/https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 
@@ -42,13 +42,13 @@
             <div class="auth-box">
                 <div id="loginform">
                     <div class="logo">
-                        <span class="db"><img src="assets/images/logo-icon.png" alt="logo" /></span>
-                        <h5 class="font-medium m-b-20">Sign In to Users</h5>
+                        <span class="db"><img src="{{url('')}}/assets/images/logo-icon.png" alt="logo" /></span>
+                        <h5 class="font-medium m-b-20">Sign In to Manager</h5>
                     </div>
                     <!-- Form -->
                     <div class="row">
                         <div class="col-12">
-                            <form class="form-horizontal m-t-20" id="loginform" method="POST" action="{{ route('login') }}">
+                            <form class="form-horizontal m-t-20" id="loginform" method="POST" action="{{ route('manager.login') }}">
                                  @csrf
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -67,7 +67,7 @@
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="customCheck1">
                                             <label class="custom-control-label" for="customCheck1">Remember me</label>
-                                            <a href="javascript:void(0)" id="to-recover" class="text-dark float-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a>
+                                            <a href="{{url('')}}/javascript:void(0)" id="to-recover" class="text-dark float-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a>
                                         </div>
                                     </div>
                                 </div>
@@ -79,14 +79,14 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
                                         <div class="social">
-                                            <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="" data-original-title="Login with Facebook"> <i aria-hidden="true" class="fab  fa-facebook"></i> </a>
-                                            <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="" data-original-title="Login with Google"> <i aria-hidden="true" class="fab  fa-google-plus"></i> </a>
+                                            <a href="{{url('')}}/javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="" data-original-title="Login with Facebook"> <i aria-hidden="true" class="fab  fa-facebook"></i> </a>
+                                            <a href="{{url('')}}/javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="" data-original-title="Login with Google"> <i aria-hidden="true" class="fab  fa-google-plus"></i> </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group m-b-0 m-t-10">
                                     <div class="col-sm-12 text-center">
-                                        Don't have an account? <a href="authentication-register1.html" class="text-info m-l-5"><b>Sign Up</b></a>
+                                        Don't have an account? <a href="{{url('')}}/authentication-register1.html" class="text-info m-l-5"><b>Sign Up</b></a>
                                     </div>
                                 </div>
                             </form>
@@ -95,7 +95,7 @@
                 </div>
                 <div id="recoverform">
                     <div class="logo">
-                        <span class="db"><img src="assets/images/logo-icon.png" alt="logo" /></span>
+                        <span class="db"><img src="{{url('')}}/assets/images/logo-icon.png" alt="logo" /></span>
                         <h5 class="font-medium m-b-20">Recover Password</h5>
                         <span>Enter your Email and instructions will be sent to you!</span>
                     </div>
@@ -138,10 +138,10 @@
     <!-- ============================================================== -->
     <!-- All Required js -->
     <!-- ============================================================== -->
-    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="{{url('')}}/assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{url('')}}/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="{{url('')}}/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- ============================================================== -->
     <!-- This page plugin js -->
     <!-- ============================================================== -->
