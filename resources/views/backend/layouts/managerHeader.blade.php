@@ -421,7 +421,7 @@
                          <a class="dropdown-item" href="javascript:void(0)">
                              <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
                          <div class="dropdown-divider"></div>
-                         <form action="{{ route('admin.logout') }}" method="post">
+                         <form action="{{ route('manager.logout') }}" method="post">
                              @csrf
                              <button type="submit" href="">
                                  <i class="fa fa-power-off m-r-5 m-l-5"></i>Manager Logout</button>

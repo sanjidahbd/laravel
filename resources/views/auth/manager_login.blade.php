@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="form-group m-b-0 m-t-10">
                                     <div class="col-sm-12 text-center">
-                                        Don't have an account? <a href="{{url('')}}/authentication-register1.html" class="text-info m-l-5"><b>Sign Up</b></a>
+                                        Don't have an account? <a href="{{url('')}}/authentication-register1.html" class="text-info m-l-5"><b>Manager Sign Up</b></a>
                                     </div>
                                 </div>
                             </form>
