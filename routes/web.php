@@ -1,7 +1,7 @@
 <?php
-
+use App\Http\Controllers\FoodItemController;
+use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,12 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // Route::get('/categories',[CategoryController::class,'index'])->name('category.all');
-    // Route::get('category/new',[CategoryController::class,'create'])->name('category.new');
-    // Route::get('/category/edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
-    // Route::post('/category/delete/{id}',[CategoryController::class,'destroy'])->name('category.delete');
-    Route::resource('category',CategoryController::class);
-    Route::resource('product',ProductController::class);
+    
+   
 });
 //Admin Login,Logout
 Route::middleware('guest:admin')->prefix('admin')->group( function () {
@@ -52,7 +48,9 @@ Route::middleware('auth:admin')->prefix('admin')->group( function () {
 
 
     Route::view('/dashboard','backend.admin_dashboard');
-
+Route::resource('categories', CategoryController::class);
+Route::resource('subcategories', SubcategoryController::class);
+Route::resource('fooditems', FoodItemController::class);
 });
 
 //Manager Login,Logout

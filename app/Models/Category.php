@@ -9,9 +9,6 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name'];
-
-    public function product(){
-        return $this->hasMany(product::class);
-    }
+    // Ei field gulo database-e store korar permission deya holo
+    protected $fillable = ['name', 'slug'];
 }
