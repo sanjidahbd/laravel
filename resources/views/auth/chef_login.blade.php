@@ -43,12 +43,12 @@
                 <div id="loginform">
                     <div class="logo">
                         <span class="db"><img src="{{url('')}}/assets/images/logo-icon.png" alt="logo" /></span>
-                        <h5 class="font-medium m-b-20">Sign In to Manager</h5>
+                        <h5 class="font-medium m-b-20">Sign In to Chef</h5>
                     </div>
                     <!-- Form -->
                     <div class="row">
                         <div class="col-12">
-                            <form class="form-horizontal m-t-20" id="loginform" method="POST" action="{{ route('manager.login') }}">
+                            <form class="form-horizontal m-t-20" id="loginform" method="POST" action="{{ route('chef.login') }}">
                                  @csrf
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="form-group m-b-0 m-t-10">
                                     <div class="col-sm-12 text-center">
-                                        Don't have an account? <a href="{{url('')}}/authentication-register1.html" class="text-info m-l-5"><b>Manager Sign Up</b></a>
+                                        Don't have an account? <a href="{{url('')}}/authentication-register1.html" class="text-info m-l-5"><b>Chef Sign Up</b></a>
                                     </div>
                                 </div>
                             </form>

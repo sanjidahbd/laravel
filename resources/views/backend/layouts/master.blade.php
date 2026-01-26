@@ -14,16 +14,16 @@
       @include ("backend.layouts.header")
       @elseif(Auth::guard('admin')->check())
          @include ("backend.layouts.adminHeader")
-      @elseif(Auth::guard('manager')->check())
-         @include ("backend.layouts.managerHeader")
+      @elseif(Auth::guard('chef')->check())
+         @include ("backend.layouts.chefHeader")
        @endif
     <!--Sidebar Include -->
      @if(Auth::guard('web')->check())
       @include ("backend.layouts.sidebar")
       @elseif(Auth::guard('admin')->check())
          @include ("backend.layouts.adminSidebar")
-      @elseif(Auth::guard('manager')->check())
-         @include ("backend.layouts.managerSidebar")
+      @elseif(Auth::guard('chef')->check())
+         @include ("backend.layouts.chefSidebar")
        @endif
    
 

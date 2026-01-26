@@ -47,9 +47,9 @@ return [
             'provider' => 'admins',//admin table
         ],
   
-        'manager' => [
+        'chef' => [
             'driver' => 'session',
-            'provider' => 'managers',//admin table
+            'provider' => 'chefs',//chef table
         ],
     ],
 
@@ -81,9 +81,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
-        'managers' => [
+        'chefs' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Manager::class,
+            'model' => App\Models\Chef::class,
         ],
 
         // 'users' => [

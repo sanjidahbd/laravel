@@ -45,7 +45,7 @@
                                         <td class="font-weight-bold">{{ $item->item_name }}</td>
                                         <td>{{ $item->category->name }}</td>
                                         <td>{{ $item->subcategory->subcategory_name }}</td>
-                                        <td class="text-success font-weight-bold">${{ number_format($item->price, 2) }}</td>
+                                        <td class="text-success font-weight-bold">৳{{ number_format($item->price, 2) }}</td>
                                         <td>
                                             @if($item->status == 1)
                                                 <span class="badge badge-pill badge-success">Active</span>

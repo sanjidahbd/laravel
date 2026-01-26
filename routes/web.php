@@ -53,23 +53,23 @@ Route::resource('subcategories', SubcategoryController::class);
 Route::resource('fooditems', FoodItemController::class);
 });
 
-//Manager Login,Logout
-Route::middleware('guest:manager')->prefix('manager')->group( function () {
+//Chef Login,Logout
+Route::middleware('guest:chef')->prefix('chef')->group( function () {
 
-    Route::get('login', [App\Http\Controllers\Auth\Manager\LoginController::class, 'create'])->name('manager.login');
-    Route::post('login', [App\Http\Controllers\Auth\Manager\LoginController::class, 'store']);
+    Route::get('login', [App\Http\Controllers\Auth\Chef\LoginController::class, 'create'])->name('chef.login');
+    Route::post('login', [App\Http\Controllers\Auth\Chef\LoginController::class, 'store']);
 
     //Route::get('register', [App\Http\Controllers\Auth\Admin\RegisterController::class, 'create'])->name('admin.register');
     //Route::post('register', [App\Http\Controllers\Auth\Admin\RegisterController::class, 'store']);
 
 });
 
-Route::middleware('auth:manager')->prefix('manager')->group( function () {
+Route::middleware('auth:chef')->prefix('chef')->group( function () {
 
-    Route::post('logout', [App\Http\Controllers\Auth\Manager\LoginController::class, 'destroy'])->name('manager.logout');
+    Route::post('logout', [App\Http\Controllers\Auth\Chef\LoginController::class, 'destroy'])->name('chef.logout');
 
 
-    Route::view('/dashboard','backend.manager_dashboard');
+    Route::view('/dashboard','backend.chef_dashboard');
 
 });
 
