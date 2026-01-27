@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('fronted.layouts.master');
+    return view('fronted.pages.home');
 });
 
 Route::get('/dashboard', function () {
