@@ -1,0 +1,1 @@
+@extend('fronted.layouts.master')
