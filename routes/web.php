@@ -20,9 +20,14 @@ Route::get('/', function () {
     return view('fronted.pages.home');
 });
 
+
+
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+;
+
+ Route::get('/dashboard/menu', [App\Http\Controllers\CustomerController::class, 'index'])->middleware(['auth'])->name('customer.menu');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

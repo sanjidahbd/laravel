@@ -44,16 +44,16 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                                 <i class="icon-Mailbox-Empty"></i>
-                                <span class="hide-menu">Products </span>
+                                <span class="hide-menu">View Menu</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="/product" class="sidebar-link">
+                                    <a href="{{route('customer.menu')}}" class="sidebar-link">
                                         <i class="mdi mdi-email"></i>
-                                        <span class="hide-menu">All Products </span>
+                                        <span class="hide-menu">All food</span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
+                                {{-- <li class="sidebar-item">
                                     <a href="/product/create" class="sidebar-link">
                                         <i class="mdi mdi-email-alert"></i>
                                         <span class="hide-menu"> Add Products </span>
@@ -67,7 +67,7 @@
                                 </li>
                             </ul>
                         </li>
-                      
+                       --}}
                   
                      
                       

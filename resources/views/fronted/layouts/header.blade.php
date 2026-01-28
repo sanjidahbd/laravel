@@ -33,7 +33,7 @@
                                             <nav id="mobile-menu">
                                                 <ul>
                                                     <li class="has-dropdown active menu-thumb">
-                                                        <a href="index.html">
+                                                        <a href="">
                                                             Home
                                                             <i class="fa-regular fa-plus"></i>
                                                         </a>
@@ -119,18 +119,17 @@
                                                         </ul>
                                                     </li>
                                                     <li class="has-dropdown active d-xl-none">
-                                                        <a href="index.html" class="border-none">
+                                                        <a href="" class="border-none">
                                                             Home
                                                             <i class="fa-regular fa-plus"></i>
                                                         </a>
                                                         <ul class="submenu">
                                                             <li><a href="index.html">Home 01</a></li>
-                                                            <li><a href="index-2.html">Home 02</a></li>
-                                                            <li><a href="index-3.html">Home 03</a></li>
+                                                           
                                                         </ul>
                                                     </li>
                                                     <li class="has-dropdown">
-                                                        <a href="about.html">
+                                                        <a href="{{url('/about')}}">
                                                             About Us
                                                             <i class="fa-regular fa-plus"></i>
                                                         </a>
