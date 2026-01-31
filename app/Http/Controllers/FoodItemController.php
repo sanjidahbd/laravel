@@ -55,6 +55,7 @@ class FoodItemController extends Controller
             'item_slug' => Str::slug($request->item_name), 
             'description' => $request->description,
             'price' => $request->price,
+            'quantity' => $request->quantity,
             'image' => $save_url,
             'status' => 1,
             'created_at' => Carbon::now(),
@@ -104,6 +105,7 @@ class FoodItemController extends Controller
             'item_slug' => Str::slug($request->item_name),
             'description' => $request->description,
             'price' => $request->price,
+            'quantity' => $request->quantity,
             'image' => $save_url,
         ]);
 

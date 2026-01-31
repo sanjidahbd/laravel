@@ -11,11 +11,13 @@
                     <div class="card-body p-4">
                         <form action="{{ route('fooditems.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>@foreach ($errors->all() as $error) <li>{{ $error }}</li> @endforeach</ul>
-    </div>
-@endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>@foreach ($errors->all() as $error) <li>{{ $error }}</li> @endforeach</ul>
+                                </div>
+                            @endif
+
                             <div class="row">
                                 {{-- Category --}}
                                 <div class="col-md-6 form-group mb-3">
@@ -44,31 +46,31 @@
                                 {{-- Food Name --}}
                                 <div class="col-md-8 form-group mb-3">
                                     <label class="font-weight-bold">Food Name <span class="text-danger">*</span></label>
-                                    {{-- Placeholder change kora hoyeche --}}
-                                    <input type="text" name="item_name" class="form-control" placeholder="Enter food name" required>
+                                    <input type="text" name="item_name" class="form-control" placeholder="Enter food name" value="{{ old('item_name') }}" required>
                                 </div>
 
-                             
+                                {{-- Price --}}
                                 <div class="col-md-4 form-group mb-3">
                                     <label class="font-weight-bold">Price (BDT) <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                        
                                             <span class="input-group-text">৳</span>
                                         </div>
-                                        <input type="number" step="0.01" name="price" class="form-control" placeholder="00.00" required>
+                                        <input type="number" step="0.01" name="price" class="form-control" placeholder="00.00" value="{{ old('price') }}" required>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-    <label for="quantity">Food Stock (Quantity)</label>
-    <input type="number" name="quantity" class="form-control" id="quantity" value="{{ $item->quantity ?? 0 }}" min="0">
-</div>
+
+                            {{-- Quantity (Fix: Removed $item->quantity) --}}
+                            <div class="form-group mb-3">
+                                <label for="quantity" class="font-weight-bold">Food Stock (Quantity) <span class="text-danger">*</span></label>
+                                <input type="number" name="quantity" class="form-control @error('quantity') is-invalid @enderror" id="quantity" value="{{ old('quantity', 0) }}" min="0" placeholder="Enter stock quantity" required>
+                            </div>
 
                             {{-- Description --}}
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">Description (Short Details)</label>
-                                <textarea name="description" rows="3" class="form-control" placeholder="Write a short description about this food (e.g. Spicy, Healthy, Serves 1)"></textarea>
+                                <textarea name="description" rows="3" class="form-control" placeholder="Write a short description about this food (e.g. Spicy, Healthy, Serves 1)">{{ old('description') }}</textarea>
                             </div>
 
                             {{-- Image --}}
@@ -78,7 +80,7 @@
                                 <small class="text-muted">Max size: 2MB (JPG, PNG, WEBP)</small>
                                 
                                 <div class="mt-2 text-center">
-                                    <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="preview" style="width: 120px; height: 100px; border: 1px solid #ddd; object-fit: cover;">
+                                    <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="preview" style="width: 120px; height: 100px; border: 1px solid #ddd; object-fit: cover;" class="rounded shadow-sm">
                                 </div>
                             </div>
 

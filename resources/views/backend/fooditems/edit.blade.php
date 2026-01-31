@@ -14,7 +14,6 @@
                             @method('PUT')
 
                             <div class="row">
-                            
                                 <div class="col-md-6 form-group mb-3">
                                     <label class="font-weight-bold">Main Category</label>
                                     <select name="category_id" class="form-control" required>
@@ -26,7 +25,6 @@
                                     </select>
                                 </div>
                                 
-                    
                                 <div class="col-md-6 form-group mb-3">
                                     <label class="font-weight-bold">Subcategory</label>
                                     <select name="subcategory_id" class="form-control" required>
@@ -49,17 +47,18 @@
                                     <input type="number" step="0.01" name="price" class="form-control" value="{{ $fooditem->price }}" required>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-    <label for="quantity">Food Stock (Quantity)</label>
-    <input type="number" name="quantity" class="form-control" id="quantity" value="{{ $item->quantity ?? 0 }}" min="0">
-</div>
+
+                            {{-- Fix: Changed $item to $fooditem --}}
+                            <div class="form-group mb-3">
+                                <label for="quantity" class="font-weight-bold">Food Stock (Quantity)</label>
+                                <input type="number" name="quantity" class="form-control" id="quantity" value="{{ $fooditem->quantity }}" min="0" required>
+                            </div>
 
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">Description</label>
                                 <textarea name="description" rows="3" class="form-control">{{ $fooditem->description }}</textarea>
                             </div>
 
-                        
                             <div class="row align-items-center mb-4">
                                 <div class="col-md-8 form-group">
                                     <label class="font-weight-bold">Update Image (Leave blank to keep current)</label>

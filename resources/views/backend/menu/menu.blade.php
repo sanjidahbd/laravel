@@ -1,3 +1,4 @@
+
 @extends('backend.admin_dashboard') 
 @section('content')
 <div class="page-wrapper">
@@ -5,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-11 mt-4">
                 
-                {{-- Success Message --}}
+                {{-- Success & Error Messages --}}
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show shadow-sm mb-3">
                         <strong>Success!</strong> {{ session('success') }}
@@ -13,7 +14,6 @@
                     </div>
                 @endif
 
-                {{-- Error Message --}}
                 @if(session('error'))
                     <div class="alert alert-danger alert-dismissible fade show shadow-sm mb-3">
                         <strong>Error!</strong> {{ session('error') }}
@@ -35,6 +35,7 @@
                                         <th>Image</th>
                                         <th>Food Name</th>
                                         <th>Price</th>
+                                        <th>Stock</th> {{-- নতুন কলাম --}}
                                         <th>Quantity</th>
                                         <th>Action</th>
                                     </tr>
@@ -49,16 +50,33 @@
                                         <td class="font-weight-bold">{{ $item->item_name }}</td>
                                         <td class="text-success font-weight-bold">৳{{ number_format($item->price, 2) }}</td>
                                         
-                                        {{-- Add to Cart Form --}}
+                                        {{-- ধাপে ধাপে পরিবর্তন: ১. স্টক স্ট্যাটাস --}}
+                                        <td>
+                                            @if($item->quantity > 0)
+                                                <span class="badge badge-success">{{ $item->quantity }} Pcs</span>
+                                            @else
+                                                <span class="badge badge-danger">Out of Stock</span>
+                                            @endif
+                                        </td>
+
+                                        {{-- Add to Cart Form শুরু --}}
                                         <form action="{{ route('cart.add', $item->id) }}" method="POST">
                                             @csrf
                                             <td>
-                                                <input type="number" name="quantity" value="1" min="1" class="form-control mx-auto shadow-sm" style="width: 80px;">
+                                                {{-- ধাপে ধাপে পরিবর্তন: ২. ইনপুট লিমিট করা --}}
+                                                <input type="number" name="quantity" value="1" min="1" max="{{ $item->quantity }}" class="form-control mx-auto shadow-sm" style="width: 80px;" {{ $item->quantity <= 0 ? 'disabled' : '' }}>
                                             </td>
                                             <td>
-                                                <button type="submit" class="btn btn-primary btn-sm px-3 shadow-sm">
-                                                    <i class="ti-shopping-cart"></i> Add to Cart
-                                                </button>
+                                                {{-- ধাপে ধাপে পরিবর্তন: ৩. স্টক না থাকলে বাটন ডিজেবল --}}
+                                                @if($item->quantity > 0)
+                                                    <button type="submit" class="btn btn-primary btn-sm px-3 shadow-sm">
+                                                        <i class="ti-shopping-cart"></i> Add to Cart
+                                                    </button>
+                                                @else
+                                                    <button type="button" class="btn btn-secondary btn-sm px-3 shadow-sm" disabled>
+                                                        Unavailable
+                                                    </button>
+                                                @endif
                                             </td>
                                         </form>
                                     </tr>
@@ -67,7 +85,7 @@
                             </table>
                         </div>
 
-                        {{-- Total Payable & Place Order Section --}}
+                        {{-- Total Payable Section --}}
                         <div class="card mt-3">
                             <div class="card-body py-3 bg-light text-right border rounded">
                                 @php $total = 0; @endphp
@@ -82,7 +100,6 @@
                                 </h4>
                                 
                                 @if($total > 0)
-                                    {{-- Place Order Form --}}
                                     <form action="{{ route('order.place') }}" method="POST" class="mt-3">
                                         @csrf
                                         <button type="submit" class="btn btn-success shadow-sm px-4 font-weight-bold">

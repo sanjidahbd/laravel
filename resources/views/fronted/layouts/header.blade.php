@@ -68,31 +68,27 @@
                                         <nav id="mobile-menu">
                                             <ul>
                                                 <li class="has-dropdown active">
-                                                    <a href="index.html">Home <i class="fa-regular fa-plus"></i></a>
-                                                    <ul class="submenu">
-                                                        <li><a href="index.html">Home 01</a></li>
-                                                        <li><a href="index-2.html">Home 02</a></li>
-                                                    </ul>
+                                                    <a href="{{url('/')}}">Home </a>
+                                                    
                                                 </li>
                                                 <li><a href="{{url('/about')}}">About Us</a></li>
-                                                <li><a href="shop.html">Shop</a></li>
+                                              
                                                 <li class="has-dropdown">
                                                     <a href="#">Pages <i class="fa-regular fa-plus"></i></a>
                                                     <ul class="submenu">
                                                         <li><a href="chef.html">Chef</a></li>
                                                         <li><a href="menu.html">Food Menu</a></li>
-                                                        <li><a href="gallery.html">Gallery</a></li>
                                                         <li><a href="reservation.html">Reservation</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="blog.html">Blog</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
+                                           
+                                                <li><a href="/contact">Contact</a></li>
 
                                                 <li>
                                                     <a href="/login"><i class="fa-regular fa-user"></i> Login</a>
                                                 </li>
                                                 <li>
-                                                    <a href="/register" class="reg-btn"><i class="fa-regular fa-id-card"></i> Register</a>
+                                                    <a href="/register" class="reg-btn">Register</a>
                                                 </li>
                                             </ul>
                                         </nav>

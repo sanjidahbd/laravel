@@ -29,7 +29,8 @@
                                         <th>Category</th>
                                         <th>Subcategory</th>
                                         <th>Price</th>
-                                        <th>Stock</th> <th>Status</th>
+                                        <th>Stock</th> 
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -41,12 +42,13 @@
                                             <img src="{{ asset($item->image) }}" style="width: 60px; height: 50px; object-fit: cover;" class="rounded border shadow-sm">
                                         </td>
                                         <td class="font-weight-bold">{{ $item->item_name }}</td>
-                                        <td>{{ $item->category->name }}</td>
-                                        <td>{{ $item->subcategory->subcategory_name }}</td>
+                                        <td>{{ $item->category->name ?? 'N/A' }}</td>
+                                        <td>{{ $item->subcategory->subcategory_name ?? 'N/A' }}</td>
                                         <td class="text-success font-weight-bold">৳{{ number_format($item->price, 2) }}</td>
                                         
+                                        {{-- Stock Column Fix --}}
                                         <td>
-                                            @if($item->quantity > 0)
+                                            @if($item->quantity !== null && $item->quantity > 0)
                                                 <span class="badge badge-info">{{ $item->quantity }} Pcs</span>
                                             @else
                                                 <span class="badge badge-danger">Out of Stock</span>

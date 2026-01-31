@@ -302,7 +302,7 @@
                 <div class="row gy-4">
                     <div class="col-lg-6 col-xl-4">
                         <div class="offer-card style1 wow fadeInUp" data-wow-delay="0.2s"
-                            style="background-image: url(assets/img/bg/offerBG1_1.jpg);">
+                            style="background-image: url('{{url("/")}}/assets/fronted/img/bg/banner.jpg)';">
                             <div class="offer-content">
                                 <h6>ON THIS WEEK</h6>
                                 <h3>SPICY FRIED CHICKEN</h3>
@@ -320,7 +320,7 @@
                     </div>
                     <div class="col-lg-6 col-xl-4">
                         <div class="offer-card style1 wow fadeInUp" data-wow-delay="0.5s"
-                            style="background-image: url(assets/img/bg/offerBG1_1.jpg);">
+                            style="background-image: url('{{url("/")}}/assets/fronted/img/bg/banner.jpg)';">
                             <div class="offer-content">
                                 <h6>WELCOME FRESHEAT</h6>
                                 <h3>TODAY SPACIAL FOOD</h3>
