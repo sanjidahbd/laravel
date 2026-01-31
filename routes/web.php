@@ -4,7 +4,7 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +27,20 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 ;
 
- Route::get('/dashboard/menu', [App\Http\Controllers\CustomerController::class, 'index'])->middleware(['auth'])->name('customer.menu');
+ // Customer Dashboard & Menu
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard/menu', [CustomerController::class, 'index'])->name('customer.menu');
+    
+    // Step 1: My Orders Route (Ekhane add korun)
+    Route::get('/my-orders', [CustomerController::class, 'myOrders'])->name('customer.orders');
+    
+    // Final Order placement
+    Route::post('/place-order', [CustomerController::class, 'placeOrder'])->name('order.place');
+    Route::get('/order-details/{id}', [CustomerController::class, 'orderDetails'])->name('order.details');
+});
+
+// Cart functionality (Login charao hote pare, tai group-er baire)
+Route::post('/add-to-cart/{id}', [CustomerController::class, 'addToCart'])->name('cart.add');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -56,6 +69,10 @@ Route::middleware('auth:admin')->prefix('admin')->group( function () {
 Route::resource('categories', CategoryController::class);
 Route::resource('subcategories', SubcategoryController::class);
 Route::resource('fooditems', FoodItemController::class);
+// Admin Order Management
+    Route::get('/orders/all', [App\Http\Controllers\AdminOrderController::class, 'allOrders'])->name('admin.orders.all');
+    Route::post('/orders/update-status/{id}', [App\Http\Controllers\AdminOrderController::class, 'updateStatus'])->name('admin.order.update');
+Route::get('/admin/order/details/{id}', [App\Http\Controllers\AdminOrderController::class, 'viewOrder'])->name('admin.order.view');
 });
 
 //Chef Login,Logout

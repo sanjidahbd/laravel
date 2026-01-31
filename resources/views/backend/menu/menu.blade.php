@@ -1,131 +1,102 @@
+@extends('backend.admin_dashboard') 
+@section('content')
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-11 mt-4">
+                
+                {{-- Success Message --}}
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show shadow-sm mb-3">
+                        <strong>Success!</strong> {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                @endif
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Food Menu</title>
+                {{-- Error Message --}}
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show shadow-sm mb-3">
+                        <strong>Error!</strong> {{ session('error') }}
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                @endif
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <h4 class="card-title"><i class="mdi mdi-silverware"></i> Select Your Food & Order</h4>
+                        </div>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover text-center align-middle">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Image</th>
+                                        <th>Food Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($fooditems as $key => $item)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>
+                                            <img src="{{ asset($item->image) }}" style="width: 60px; height: 50px; object-fit: cover;" class="rounded border shadow-sm">
+                                        </td>
+                                        <td class="font-weight-bold">{{ $item->item_name }}</td>
+                                        <td class="text-success font-weight-bold">৳{{ number_format($item->price, 2) }}</td>
+                                        
+                                        {{-- Add to Cart Form --}}
+                                        <form action="{{ route('cart.add', $item->id) }}" method="POST">
+                                            @csrf
+                                            <td>
+                                                <input type="number" name="quantity" value="1" min="1" class="form-control mx-auto shadow-sm" style="width: 80px;">
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-primary btn-sm px-3 shadow-sm">
+                                                    <i class="ti-shopping-cart"></i> Add to Cart
+                                                </button>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
-    <style>
-        td, th {
-            text-align: center;
-            vertical-align: middle;
-        }
-        .qty {
-            width: 50px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body class="p-4">
+                        {{-- Total Payable & Place Order Section --}}
+                        <div class="card mt-3">
+                            <div class="card-body py-3 bg-light text-right border rounded">
+                                @php $total = 0; @endphp
+                                @if(session('cart'))
+                                    @foreach(session('cart') as $id => $details)
+                                        @php $total += $details['price'] * $details['quantity'] @endphp
+                                    @endforeach
+                                @endif
+                                
+                                <h4 class="mb-0 text-dark font-medium">
+                                    Total Payable: <span class="text-primary font-bold">৳{{ number_format($total, 2) }}</span>
+                                </h4>
+                                
+                                @if($total > 0)
+                                    {{-- Place Order Form --}}
+                                    <form action="{{ route('order.place') }}" method="POST" class="mt-3">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success shadow-sm px-4 font-weight-bold">
+                                            <i class="ti-check"></i> Place Order Now
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
+                        </div>
 
-<div class="container">
-    <h2 class="text-center mb-4">🍽️ Food Menu</h2>
-
-    <table class="table table-bordered">
-        <thead class="table-dark">
-        <tr>
-            <th>SL</th>
-            <th>Image</th>
-            <th>Food Name</th>
-            <th>Category</th>
-            <th>Subcategory</th>
-            <th>Short Desc</th>
-            <th>Availability</th>
-             <th>Price ($)</th>
-              <th>Quantity</th>
-               <th>Action</th>
-
-
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr>
-            <td>Burger</td>
-            <td>Cheas Burger</td>
-            <td>Yes</td>
-            <td class="price">5</td>
-            <td>
-                <button class="btn btn-sm btn-danger minus">-</button>
-                <input type="text" class="qty" value="1" readonly>
-                <button class="btn btn-sm btn-success plus">+</button>
-            </td>
-            <td class="subtotal">5</td>
-            <td>
-                <button class="btn btn-primary add">Add to Cart</button>
-            </td>
-        </tr>
-
-        <tr>
-            <td>Pizza</td>
-            <td>8" inch 6 slice</td>
-            <td>No</td>
-            <td class="price">3.5</td>
-            <td>
-                <button class="btn btn-sm btn-danger minus">-</button>
-                <input type="text" class="qty" value="1" readonly>
-                <button class="btn btn-sm btn-success plus">+</button>
-            </td>
-            <td class="subtotal">3.5</td>
-            <td>
-                <button class="btn btn-primary add">Add to Cart</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <h4 class="text-end">Total: $<span id="total">0</span></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<script>
-$(document).ready(function(){
-
-    function updateSubtotal(row){
-        let price = parseFloat(row.find('.price').text());
-        let qty = parseInt(row.find('.qty').val());
-        let subtotal = price * qty;
-        row.find('.subtotal').text(subtotal.toFixed(2));
-    }
-
-    function updateTotal(){
-        let total = 0;
-        $('.subtotal').each(function(){
-            total += parseFloat($(this).text());
-        });
-        $('#total').text(total.toFixed(2));
-    }
-
-    $('.plus').click(function(){
-        let row = $(this).closest('tr');
-        let qty = row.find('.qty');
-        qty.val(parseInt(qty.val()) + 1);
-        updateSubtotal(row);
-        updateTotal();
-    });
-
-    $('.minus').click(function(){
-        let row = $(this).closest('tr');
-        let qty = row.find('.qty');
-        if(qty.val() > 1){
-            qty.val(parseInt(qty.val()) - 1);
-            updateSubtotal(row);
-            updateTotal();
-        }
-    });
-
-    $('.add').click(function(){
-        updateTotal();
-        alert("Item added to cart!");
-    });
-
-});
-</script>
-
-</body>
-</html>
+@endsection

@@ -79,7 +79,7 @@
                     </ul>
                 </li>
 
-           
+                {{-- Manage Food Items --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                         <i class="mdi mdi-food"></i>
@@ -99,6 +99,14 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+
+           
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark" href="{{ route('admin.orders.all') }}" aria-expanded="false">
+                        <i class="mdi mdi-cart-outline"></i>
+                        <span class="hide-menu">Customer Orders</span>
+                    </a>
                 </li>
 
             </ul>

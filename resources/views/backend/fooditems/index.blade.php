@@ -5,7 +5,6 @@
         <div class="row justify-content-center">
             <div class="col-md-11 mt-4">
                 
-            
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show shadow-sm mb-3">
                         <strong>Success!</strong> {{ session('success') }}
@@ -30,7 +29,7 @@
                                         <th>Category</th>
                                         <th>Subcategory</th>
                                         <th>Price</th>
-                                        <th>Status</th>
+                                        <th>Stock</th> <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -39,13 +38,21 @@
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>
-                               
                                             <img src="{{ asset($item->image) }}" style="width: 60px; height: 50px; object-fit: cover;" class="rounded border shadow-sm">
                                         </td>
                                         <td class="font-weight-bold">{{ $item->item_name }}</td>
                                         <td>{{ $item->category->name }}</td>
                                         <td>{{ $item->subcategory->subcategory_name }}</td>
                                         <td class="text-success font-weight-bold">৳{{ number_format($item->price, 2) }}</td>
+                                        
+                                        <td>
+                                            @if($item->quantity > 0)
+                                                <span class="badge badge-info">{{ $item->quantity }} Pcs</span>
+                                            @else
+                                                <span class="badge badge-danger">Out of Stock</span>
+                                            @endif
+                                        </td>
+
                                         <td>
                                             @if($item->status == 1)
                                                 <span class="badge badge-pill badge-success">Active</span>

@@ -49,6 +49,10 @@
                                     <input type="number" step="0.01" name="price" class="form-control" value="{{ $fooditem->price }}" required>
                                 </div>
                             </div>
+                            <div class="form-group col-md-6">
+    <label for="quantity">Food Stock (Quantity)</label>
+    <input type="number" name="quantity" class="form-control" id="quantity" value="{{ $item->quantity ?? 0 }}" min="0">
+</div>
 
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">Description</label>

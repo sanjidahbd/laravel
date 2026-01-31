@@ -48,18 +48,22 @@
                                     <input type="text" name="item_name" class="form-control" placeholder="Enter food name" required>
                                 </div>
 
-                                {{-- Price (Taka) --}}
+                             
                                 <div class="col-md-4 form-group mb-3">
                                     <label class="font-weight-bold">Price (BDT) <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            {{-- Icon change kora hoyeche Taka-r jonno --}}
+                                        
                                             <span class="input-group-text">৳</span>
                                         </div>
                                         <input type="number" step="0.01" name="price" class="form-control" placeholder="00.00" required>
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group col-md-6">
+    <label for="quantity">Food Stock (Quantity)</label>
+    <input type="number" name="quantity" class="form-control" id="quantity" value="{{ $item->quantity ?? 0 }}" min="0">
+</div>
 
                             {{-- Description --}}
                             <div class="form-group mb-3">
