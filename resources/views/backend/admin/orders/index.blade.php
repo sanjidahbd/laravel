@@ -17,7 +17,7 @@
                                 <th>Order ID</th>
                                 <th>Customer Name</th>
                                 <th>Total Bill</th>
-                                <th>Current Status</th>
+                                <th>Payment</th> <th>Payment Status</th> <th>Current Status</th>
                                 <th>Change Status</th>
                                 <th>Action</th>
                             </tr>
@@ -26,11 +26,28 @@
                             @foreach($orders as $order)
                             <tr>
                                 <td><span class="font-weight-bold">#{{ $order->id }}</span></td>
-                                
                                 <td>{{ $order->user->name ?? 'Unknown' }}</td>
-                                
                                 <td class="text-dark font-weight-bold text-nowrap">
                                     ৳{{ number_format($order->total_amount, 2) }}
+                                </td>
+
+                                {{-- ১. Payment Method (COD/Online) --}}
+                                <td>
+                                    <span class="text-uppercase font-weight-bold small">
+                                        {{ $order->payment_method ?? 'COD' }}
+                                    </span>
+                                </td>
+
+                                {{-- ২. Payment Status (Paid/Unpaid Button) --}}
+                                <td>
+                                    <form action="{{ route('admin.order.payment_update', $order->id) }}" method="POST">
+                                        @csrf
+                                        @if($order->payment_status == 'paid')
+                                            <button type="submit" class="btn btn-xs badge badge-success border-0">PAID</button>
+                                        @else
+                                            <button type="submit" class="btn btn-xs badge badge-danger border-0">UNPAID</button>
+                                        @endif
+                                    </form>
                                 </td>
 
                                 <td>
@@ -47,7 +64,7 @@
                                     </span>
                                 </td>
 
-                                <td style="width: 200px;">
+                                <td style="width: 150px;">
                                     <form action="{{ route('admin.order.update', $order->id) }}" method="POST">
                                         @csrf
                                         <select name="status" onchange="this.form.submit()" class="form-control form-control-sm border-primary">

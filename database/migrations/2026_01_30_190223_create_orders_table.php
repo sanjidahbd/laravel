@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
-$table->id();
-        $table->unsignedBigInteger('user_id'); // Customer ID
-        $table->decimal('total_amount', 10, 2); // Mot Bill
-        $table->string('status')->default('pending'); // Order Status
-        $table->timestamps();
-
-        });
+       Schema::create('orders', function (Blueprint $table) {
+    $table->id();
+    $table->unsignedBigInteger('user_id'); 
+    $table->decimal('total_amount', 10, 2); // Eita thik ache
+    $table->string('payment_method')->nullable();
+    $table->string('payment_status')->default('UNPAID'); // My Orders-e 'UNPAID' dekhate eita lagbe
+    $table->string('status')->default('pending');
+    $table->string('transaction_id')->nullable();
+    $table->timestamps();
+});
     }
 
     /**

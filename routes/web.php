@@ -5,6 +5,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+
+
+use App\Http\Controllers\SslCommerzPaymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     
     // Step 1: My Orders Route (Ekhane add korun)
     Route::get('/my-orders', [CustomerController::class, 'myOrders'])->name('customer.orders');
-    
+    Route::post('/pay', [SslCommerzPaymentController::class, 'index'])->name('pay');
     // Final Order placement
     Route::post('/place-order', [CustomerController::class, 'placeOrder'])->name('order.place');
     Route::get('/order-details/{id}', [CustomerController::class, 'orderDetails'])->name('order.details');
@@ -70,8 +73,14 @@ Route::resource('categories', CategoryController::class);
 Route::resource('subcategories', SubcategoryController::class);
 Route::resource('fooditems', FoodItemController::class);
 // Admin Order Management
-    Route::get('/orders/all', [App\Http\Controllers\AdminOrderController::class, 'allOrders'])->name('admin.orders.all');
-    Route::post('/orders/update-status/{id}', [App\Http\Controllers\AdminOrderController::class, 'updateStatus'])->name('admin.order.update');
+Route::get('/orders/all', [App\Http\Controllers\AdminOrderController::class, 'allOrders'])->name('admin.orders.all');
+
+// Order Status (Cooking/Served) - Form theke ashe tai POST thik ache
+Route::post('/orders/update-status/{id}', [App\Http\Controllers\AdminOrderController::class, 'updateStatus'])->name('admin.order.update');
+
+
+Route::post('/orders/update-payment-status/{id}', [App\Http\Controllers\AdminOrderController::class, 'updatePaymentStatus'])->name('admin.order.payment_update');
+// View Details
 Route::get('/admin/order/details/{id}', [App\Http\Controllers\AdminOrderController::class, 'viewOrder'])->name('admin.order.view');
 });
 
@@ -94,6 +103,18 @@ Route::middleware('auth:chef')->prefix('chef')->group( function () {
     Route::view('/dashboard','backend.chef_dashboard');
 
 });
+// ... uporer admin/chef route gulo thakbe ...
+
+
+
+
+
+
+// Success/Fail/Cancel route-gulo oboshshoi thakte hobe
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']); 
 
 
 require __DIR__.'/auth.php';
