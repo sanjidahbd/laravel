@@ -16,4 +16,15 @@ class FoodItem extends Model
     public function subcategory() {
         return $this->belongsTo(Subcategory::class);
     }
+
+    // --- Notun Review Relationship ---
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
+
+    // Average rating ber korar helper function
+    public function averageRating() {
+        // Jodi kono review na thake tobe 0 dekhabe
+        return $this->reviews()->avg('rating') ?: 0;
+    }
 }

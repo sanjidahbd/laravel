@@ -5,7 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
-
+use App\Http\Controllers\ReviewController;
 
 use App\Http\Controllers\SslCommerzPaymentController;
 /*
@@ -28,18 +28,24 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-;
+
 
  // Customer Dashboard & Menu
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/menu', [CustomerController::class, 'index'])->name('customer.menu');
+    Route::get('/order/review/{id}', [ReviewController::class, 'create'])->name('order.review.create');
     
+    
+    Route::post('/order/review/store', [ReviewController::class, 'store'])->name('review.store');
+    
+    Route::get('/reviews', [ReviewController::class, 'index'])->name('customer.reviews');
     // Step 1: My Orders Route (Ekhane add korun)
     Route::get('/my-orders', [CustomerController::class, 'myOrders'])->name('customer.orders');
     Route::post('/pay', [SslCommerzPaymentController::class, 'index'])->name('pay');
     // Final Order placement
     Route::post('/place-order', [CustomerController::class, 'placeOrder'])->name('order.place');
-    Route::get('/order-details/{id}', [CustomerController::class, 'orderDetails'])->name('order.details');
+    // Customer-এর জন্য ডিটেইলস রাউট
+Route::get('/order-details/{id}', [CustomerController::class, 'orderDetails'])->name('order.details');
 });
 
 // Cart functionality (Login charao hote pare, tai group-er baire)
@@ -72,6 +78,8 @@ Route::middleware('auth:admin')->prefix('admin')->group( function () {
 Route::resource('categories', CategoryController::class);
 Route::resource('subcategories', SubcategoryController::class);
 Route::resource('fooditems', FoodItemController::class);
+Route::get('/reviews/all', [ReviewController::class, 'adminReviews'])->name('admin.all.reviews');
+    Route::get('/reviews/delete/{id}', [ReviewController::class, 'deleteReview'])->name('admin.review.delete');
 // Admin Order Management
 Route::get('/orders/all', [App\Http\Controllers\AdminOrderController::class, 'allOrders'])->name('admin.orders.all');
 

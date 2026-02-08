@@ -12,9 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('payment_method')->default('cod'); // cod, bkash
-        $table->string('payment_status')->default('unpaid'); // paid, unpaid
-        $table->string('transaction_id')->nullable();
+            // Jodi payment_method column na thake, tobe add korbe
+            if (!Schema::hasColumn('orders', 'payment_method')) {
+                $table->string('payment_method')->default('cod');
+            }
+            
+            // Jodi payment_status column na thake, tobe add korbe
+            if (!Schema::hasColumn('orders', 'payment_status')) {
+                $table->string('payment_status')->default('unpaid');
+            }
+            
+            // Jodi transaction_id column na thake, tobe add korbe
+            if (!Schema::hasColumn('orders', 'transaction_id')) {
+                $table->string('transaction_id')->nullable();
+            }
         });
     }
 
@@ -24,7 +35,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            //
+            $table->dropColumn(['payment_method', 'payment_status', 'transaction_id']);
         });
     }
 };

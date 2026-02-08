@@ -101,11 +101,19 @@
                     </ul>
                 </li>
 
-           
+                {{-- Customer Orders --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark" href="{{ route('admin.orders.all') }}" aria-expanded="false">
                         <i class="mdi mdi-cart-outline"></i>
                         <span class="hide-menu">Customer Orders</span>
+                    </a>
+                </li>
+
+                {{-- Manage Reviews (Notun Add kora hoyeche) --}}
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark" href="{{ route('admin.all.reviews') }}" aria-expanded="false">
+                        <i class="mdi mdi-star text-warning"></i>
+                        <span class="hide-menu">Manage Reviews</span>
                     </a>
                 </li>
 
