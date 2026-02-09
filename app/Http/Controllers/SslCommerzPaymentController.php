@@ -5,25 +5,56 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class SslCommerzPaymentController extends Controller
 {
     public function index(Request $request)
     {
+        // ১. চেক করুন কার্টে খাবার আছে কি না
+        $cart = Session::get('cart');
+        if (!$cart || count($cart) == 0) {
+            return redirect()->back()->with('error', 'Your cart is empty!');
+        }
+
         $tran_id = "SSLC_" . uniqid();
 
-        // Orders table-e data insert
-        DB::table('orders')->insert([
-            'user_id' => auth()->id() ?? 1,
-            'total_amount' => $request->amount, 
-            'payment_method' => 'ONLINE',
-            'status' => 'Pending',
-            'payment_status' => 'UNPAID', 
-            'transaction_id' => $tran_id,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // ২. ট্রানজ্যাকশন শুরু (যাতে একটি টেবিলে এরর হলে অন্যটিতে ডেটা না ঢোকে)
+        DB::beginTransaction();
 
+        try {
+            // ৩. Orders table-এ ডেটা ইনসার্ট এবং অটো-জেনারেটেড ID নেওয়া
+            $orderId = DB::table('orders')->insertGetId([
+                'user_id' => Auth::id() ?? 1,
+                'total_amount' => $request->amount, 
+                'payment_method' => 'ONLINE',
+                'status' => 'Pending',
+                'payment_status' => 'UNPAID', 
+                'transaction_id' => $tran_id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // ৪. Order Items table-এ কার্টের সব খাবার সেভ করা (এটিই আপনার মিসিং ছিল)
+            foreach ($cart as $food_id => $details) {
+                DB::table('order_items')->insert([
+                    'order_id'     => $orderId,
+                    'food_item_id' => $food_id,
+                    'quantity'     => $details['quantity'],
+                    'price'        => $details['price'],
+                    'created_at'   => now(),
+                    'updated_at'   => now(),
+                ]);
+            }
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Failed to initialize order: ' . $e->getMessage());
+        }
+
+        // ৫. SSLCommerz কনফিগারেশন
         $post_data = array();
         $post_data['store_id'] = "schoo694f54f91cb2c"; 
         $post_data['store_passwd'] = "schoo694f54f91cb2c@ssl";
@@ -38,8 +69,8 @@ class SslCommerzPaymentController extends Controller
         $post_data['ipn_url'] = url('/ipn');
 
         // Customer Mandatory Info
-        $post_data['cus_name'] = auth()->user()->name ?? 'Customer';
-        $post_data['cus_email'] = auth()->user()->email ?? 'customer@mail.com';
+        $post_data['cus_name'] = Auth::user()->name ?? 'Customer';
+        $post_data['cus_email'] = Auth::user()->email ?? 'customer@mail.com';
         $post_data['cus_add1'] = 'Dhaka';
         $post_data['cus_city'] = 'Dhaka';
         $post_data['cus_country'] = 'Bangladesh';
@@ -57,8 +88,6 @@ class SslCommerzPaymentController extends Controller
         curl_setopt($handle, CURLOPT_POST, 1);
         curl_setopt($handle, CURLOPT_POSTFIELDS, http_build_query($post_data));
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-        
-        // Localhost SSL bypass
         curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, FALSE);
 
@@ -67,48 +96,64 @@ class SslCommerzPaymentController extends Controller
         curl_close($handle);
 
         if (isset($sslcommerzResponse['status']) && $sslcommerzResponse['status'] == 'SUCCESS') {
-            Session::forget('cart');
+            // এখানে সেশন ভুলেও Forget করবেন না। পেমেন্ট গেটওয়ে থেকে ক্যানসেল করে ফিরে আসলে খাবার হারিয়ে যাবে।
             return redirect()->away($sslcommerzResponse['GatewayPageURL']);
         } else {
             return "API Error: " . ($sslcommerzResponse['failedreason'] ?? 'Check Internet'); 
         }
     }
 
-// Success Function
     public function success(Request $request)
     {
         $tran_id = $request->input('tran_id');
         
-        // 1. Database update kora
+        // পেমেন্ট সাকসেস হলে স্ট্যাটাস আপডেট
         DB::table('orders')->where('transaction_id', $tran_id)->update([
             'payment_status' => 'paid', 
-            'status' => 'Pending' // Order place hole prothome Pending thaka bhalo
+            'status' => 'Pending' 
         ]);
 
-        // 2. Database theke user_id ber kora jate login nishchit kora jay
         $order = DB::table('orders')->where('transaction_id', $tran_id)->first();
 
         if ($order) {
-            // Jodi SSLCommerz redirect-er somoy session logout hoye jay, tobe auto-login
-            if (!auth()->check()) {
-                auth()->loginUsingId($order->user_id);
+            // পেমেন্ট নিশ্চিত হওয়ার পর কার্ট খালি করুন
+            Session::forget('cart');
+
+            if (!Auth::check()) {
+                Auth::loginUsingId($order->user_id);
             }
 
-            // 3. Sorasori My Orders page-e redirect kora (Kono view charai)
-            return redirect()->route('customer.orders')->with('success', 'Payment Successful! Your order ID: #' . $order->id);
+            return redirect()->route('customer.orders')->with('success', 'Payment Successful!');
         }
 
-        return redirect()->route('customer.menu')->with('error', 'Order not found.');
-    }
-    // Fail Function
-    public function fail(Request $request)
-    {
-        return view('payment_fail');
+        return redirect()->route('customer.menu')->with('error', 'Order record not found.');
     }
 
-    // Cancel Function
+    public function fail(Request $request)
+    {
+        // পেমেন্ট ফেইল করলে অসম্পূর্ণ অর্ডার ডাটাবেস থেকে মুছে ফেলা ভালো
+        $tran_id = $request->input('tran_id');
+        if($tran_id) {
+            $order = DB::table('orders')->where('transaction_id', $tran_id)->first();
+            if($order) {
+                DB::table('order_items')->where('order_id', $order->id)->delete();
+                DB::table('orders')->where('id', $order->id)->delete();
+            }
+        }
+        return redirect()->route('customer.menu')->with('error', 'Payment Failed. Items are still in your cart.');
+    }
+
     public function cancel(Request $request)
     {
-        return view('payment_fail');
+        // পেমেন্ট ক্যানসেল করলে ডেটা পরিষ্কার করা
+        $tran_id = $request->input('tran_id');
+        if($tran_id) {
+            $order = DB::table('orders')->where('transaction_id', $tran_id)->first();
+            if($order) {
+                DB::table('order_items')->where('order_id', $order->id)->delete();
+                DB::table('orders')->where('id', $order->id)->delete();
+            }
+        }
+        return redirect()->route('customer.menu')->with('error', 'Payment Cancelled.');
     }
 }
