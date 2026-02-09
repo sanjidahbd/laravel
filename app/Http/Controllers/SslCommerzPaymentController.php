@@ -11,7 +11,7 @@ class SslCommerzPaymentController extends Controller
 {
     public function index(Request $request)
     {
-        // ১. চেক করুন কার্টে খাবার আছে কি না
+      
         $cart = Session::get('cart');
         if (!$cart || count($cart) == 0) {
             return redirect()->back()->with('error', 'Your cart is empty!');
@@ -19,11 +19,11 @@ class SslCommerzPaymentController extends Controller
 
         $tran_id = "SSLC_" . uniqid();
 
-        // ২. ট্রানজ্যাকশন শুরু (যাতে একটি টেবিলে এরর হলে অন্যটিতে ডেটা না ঢোকে)
+      
         DB::beginTransaction();
 
         try {
-            // ৩. Orders table-এ ডেটা ইনসার্ট এবং অটো-জেনারেটেড ID নেওয়া
+            
             $orderId = DB::table('orders')->insertGetId([
                 'user_id' => Auth::id() ?? 1,
                 'total_amount' => $request->amount, 
@@ -35,7 +35,7 @@ class SslCommerzPaymentController extends Controller
                 'updated_at' => now(),
             ]);
 
-            // ৪. Order Items table-এ কার্টের সব খাবার সেভ করা (এটিই আপনার মিসিং ছিল)
+          
             foreach ($cart as $food_id => $details) {
                 DB::table('order_items')->insert([
                     'order_id'     => $orderId,
@@ -54,7 +54,7 @@ class SslCommerzPaymentController extends Controller
             return redirect()->back()->with('error', 'Failed to initialize order: ' . $e->getMessage());
         }
 
-        // ৫. SSLCommerz কনফিগারেশন
+        
         $post_data = array();
         $post_data['store_id'] = "schoo694f54f91cb2c"; 
         $post_data['store_passwd'] = "schoo694f54f91cb2c@ssl";
@@ -96,7 +96,7 @@ class SslCommerzPaymentController extends Controller
         curl_close($handle);
 
         if (isset($sslcommerzResponse['status']) && $sslcommerzResponse['status'] == 'SUCCESS') {
-            // এখানে সেশন ভুলেও Forget করবেন না। পেমেন্ট গেটওয়ে থেকে ক্যানসেল করে ফিরে আসলে খাবার হারিয়ে যাবে।
+           
             return redirect()->away($sslcommerzResponse['GatewayPageURL']);
         } else {
             return "API Error: " . ($sslcommerzResponse['failedreason'] ?? 'Check Internet'); 
@@ -107,7 +107,7 @@ class SslCommerzPaymentController extends Controller
     {
         $tran_id = $request->input('tran_id');
         
-        // পেমেন্ট সাকসেস হলে স্ট্যাটাস আপডেট
+       
         DB::table('orders')->where('transaction_id', $tran_id)->update([
             'payment_status' => 'paid', 
             'status' => 'Pending' 
@@ -116,7 +116,7 @@ class SslCommerzPaymentController extends Controller
         $order = DB::table('orders')->where('transaction_id', $tran_id)->first();
 
         if ($order) {
-            // পেমেন্ট নিশ্চিত হওয়ার পর কার্ট খালি করুন
+           
             Session::forget('cart');
 
             if (!Auth::check()) {
@@ -131,7 +131,7 @@ class SslCommerzPaymentController extends Controller
 
     public function fail(Request $request)
     {
-        // পেমেন্ট ফেইল করলে অসম্পূর্ণ অর্ডার ডাটাবেস থেকে মুছে ফেলা ভালো
+        
         $tran_id = $request->input('tran_id');
         if($tran_id) {
             $order = DB::table('orders')->where('transaction_id', $tran_id)->first();
@@ -145,7 +145,7 @@ class SslCommerzPaymentController extends Controller
 
     public function cancel(Request $request)
     {
-        // পেমেন্ট ক্যানসেল করলে ডেটা পরিষ্কার করা
+      
         $tran_id = $request->input('tran_id');
         if($tran_id) {
             $order = DB::table('orders')->where('transaction_id', $tran_id)->first();

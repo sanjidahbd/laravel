@@ -32,7 +32,7 @@ class FoodItemController extends Controller
      
     public function store(Request $request)
     {
-        // ১. ভ্যালিডেশন
+       
         $request->validate([
             'category_id' => 'required',
             'subcategory_id' => 'required',
@@ -41,7 +41,7 @@ class FoodItemController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        // ২. ইমেজ প্রসেসিং
+     
         $image = $request->file('image');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('upload/food_items/'), $name_gen);
