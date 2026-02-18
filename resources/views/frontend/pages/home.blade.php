@@ -1,4 +1,4 @@
-@extends("fronted.layouts.master")
+@extends("frontend.layouts.master")
 @section('head')
     <head>
     <!-- ========== Meta Tags ========== -->
@@ -10,23 +10,23 @@
     <!-- ======== Page title ============ -->
     <title>Fresheat food & Restaurant Html Template</title>
     <!--<< Favcion >>-->
-    <link rel="shortcut icon" href="{{url('')}}/assets/fronted/img/favicon.png">
+    <link rel="shortcut icon" href="{{url('')}}/assets/frontend/img/favicon.png">
     <!--<< Bootstrap min.css >>-->
-    <link rel="stylesheet" href="{{url('')}}/assets/fronted/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url('')}}/assets/frontend/css/bootstrap.min.css">
     <!--<< All Min Css >>-->
-    <link rel="stylesheet" href="{{url('')}}/assets/fronted/css/all.min.css">
+    <link rel="stylesheet" href="{{url('')}}/assets/frontend/css/all.min.css">
     <!--<< Animate.css >>-->
-    <link rel="stylesheet" href="{{url('')}}/assets/fronted/css/animate.css">
+    <link rel="stylesheet" href="{{url('')}}/assets/frontend/css/animate.css">
     <!--<< Magnific Popup.css >>-->
-    <link rel="stylesheet" href="{{url('')}}/assets/fronted/css/magnific-popup.css">
+    <link rel="stylesheet" href="{{url('')}}/assets/frontend/css/magnific-popup.css">
     <!--<< MeanMenu.css >>-->
-    <link rel="stylesheet" href="{{url('')}}/assets/fronted/css/meanmenu.css">
+    <link rel="stylesheet" href="{{url('')}}/assets/frontend/css/meanmenu.css">
     <!--<< Swiper Bundle.css >>-->
-    <link rel="stylesheet" href="{{url('')}}/assets/fronted/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{url('')}}/assets/frontend/css/swiper-bundle.min.css">
     <!--<< Nice Select.css >>-->
-    <link rel="stylesheet" href="{{url('')}}/assets/fronted/css/nice-select.css">
+    <link rel="stylesheet" href="{{url('')}}/assets/frontend/css/nice-select.css">
     <!--<< Main.css >>-->
-    <link rel="stylesheet" href="{{url('')}}/assets/fronted/css/main.css">
+    <link rel="stylesheet" href="{{url('')}}/assets/frontend/css/main.css">
 </head>  
 @endsection
 
@@ -40,8 +40,8 @@
                 <h1 class="display-2 fw-bold mb-4 animated fadeInUp" style="line-height: 1.1;">Delicious Food <br> For Your <span class="text-warning">Healthy Life</span></h1>
                 <p class="lead mb-5 animated fadeInUp" style="max-width: 600px;">Experience the authentic taste of premium ingredients and secret recipes from our world-class chefs.</p>
                 <div class="banner-btns animated fadeInUp">
-                    <a href="#" class="btn btn-warning btn-lg me-3 px-4 py-3 fw-bold rounded-pill">ORDER NOW</a>
-                    <a href="#" class="btn btn-outline-light btn-lg px-4 py-3 fw-bold rounded-pill">VIEW MENU</a>
+                    <a href="/register" class="btn btn-warning btn-lg me-3 px-4 py-3 fw-bold rounded-pill">ORDER NOW</a>
+                    <a href="/menu" class="btn btn-outline-light btn-lg px-4 py-3 fw-bold rounded-pill">VIEW MENU</a>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
                     $items = [
                         ['name' => 'Chicken Pizza', 'price' => '$26.99', 'img' => 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400'],
                         ['name' => 'Cheese Burger', 'price' => '$15.00', 'img' => 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400'],
-                        ['name' => 'French Fries', 'price' => '$10.00', 'img' => 'https://images.unsplash.com/photo-1518013034458-30b0ee56d8d6?w=400'],
+                        ['name' => 'French Fries', 'price' => '$10.00', 'img' => 'https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=400'],
                         ['name' => 'Bucket Chicken', 'price' => '$35.00', 'img' => 'https://images.unsplash.com/photo-1562967914-608f82629710?w=400'],
                         ['name' => 'Strawberry Cake', 'price' => '$12.99', 'img' => 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400'],
                         ['name' => 'Thai Noodles', 'price' => '$18.50', 'img' => 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400'],
@@ -149,7 +149,7 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=500&fit=crop" class="card-img-top" style="height: 380px; object-fit: cover;" alt="Chef">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKX4OBZVG8k39SCPV1dqXrUHwFoJQwkT7LwA&s" class="card-img-top" style="height: 380px; object-fit: cover;" alt="Chef">
                         <div class="card-body">
                             <h4 class="fw-bold">Chef John Doe</h4>
                             <p class="text-muted">Master of Italian Cuisine</p>
@@ -203,27 +203,27 @@
 @section('script')
     
  <!--<< All JS Plugins >>-->
-    <script src="{{url('')}}/assets/fronted/js/jquery-3.7.1.min.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/jquery-3.7.1.min.js"></script>
     <!--<< Bootstrap Js >>-->
-    <script src="{{url('')}}/assets/fronted/js/bootstrap.bundle.min.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/bootstrap.bundle.min.js"></script>
     <!--<< Waypoints Js >>-->
-    <script src="{{url('')}}/assets/fronted/js/jquery.waypoints.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/jquery.waypoints.js"></script>
     <!--<< Counterup Js >>-->
-    <script src="{{url('')}}/assets/fronted/js/jquery.counterup.min.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/jquery.counterup.min.js"></script>
     <!--<< Viewport Js >>-->
-    <script src="{{url('')}}/assets/fronted/js/viewport.jquery.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/viewport.jquery.js"></script>
     <!--<< Magnific popup Js >>-->
-    <script src="{{url('')}}/assets/fronted/js/magnific-popup.min.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/magnific-popup.min.js"></script>
     <!--<< Tilt Js >>-->
-    <script src="{{url('')}}/assets/fronted/js/tilt.min.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/tilt.min.js"></script>
     <!--<< Swiper Slider Js >>-->
-    <script src="{{url('')}}/assets/fronted/js/swiper-bundle.min.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/swiper-bundle.min.js"></script>
     <!--<< MeanMenu Js >>-->
-    <script src="{{url('')}}/assets/fronted/js/jquery.meanmenu.min.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/jquery.meanmenu.min.js"></script>
     <!--<< Wow Animation Js >>-->
-    <script src="{{url('')}}/assets/fronted/js/wow.min.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/wow.min.js"></script>
     <!--<< Nice Select Js >>-->
-    <script src="{{url('')}}/assets/fronted/js/nice-select.min.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/nice-select.min.js"></script>
     <!--<< Main.js >>-->
-    <script src="{{url('')}}/assets/fronted/js/main.js"></script>
+    <script src="{{url('')}}/assets/frontend/js/main.js"></script>
 @endsection

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\FoodItem;
 use App\Models\Order;       
 use App\Models\OrderItem;   
@@ -134,4 +134,14 @@ class CustomerController extends Controller
         session()->forget('cart');
         return redirect()->back()->with('success', 'Cart cleared!');
     }
+    public function orderInvoice($id)
+{
+    $order = Order::with(['orderItems.foodItem', 'user'])
+                  ->where('user_id', Auth::id())
+                  ->findOrFail($id);
+
+    
+    $pdf = Pdf::loadView('backend.orders.order_invoice', compact('order'));
+    return $pdf->download('Invoice-#'.$order->id.'.pdf');
+}
 }

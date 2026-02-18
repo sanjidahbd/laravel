@@ -81,6 +81,9 @@
                         <div class="pr-3">
                             <h3 class="mb-1">Grand Total: <span class="text-primary">৳{{ number_format($order->total_amount, 2) }}</span></h3>
                             <p class="text-muted">Ordered on: {{ $order->created_at->format('d M, Y | h:i A') }}</p>
+                            <a href="{{ route('order.invoice', $order->id) }}" class="btn btn-success shadow-sm mt-2" target="_blank">
+            <i class="ti-printer"></i> Print Invoice
+        </a>
                             <a href="{{ route('customer.orders') }}" class="btn btn-secondary shadow-sm mt-2">
                                 <i class="ti-arrow-left"></i> Back to History
                             </a>

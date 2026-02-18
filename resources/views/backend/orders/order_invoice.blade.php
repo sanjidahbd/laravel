@@ -6,8 +6,8 @@
     <style>
         /* PDF compatible CSS */
         body {
-            font-family: 'DejaVu Sans', sans-serif; /* Currency symbol ৳ er jonno eti bhalo */
-            color: #3e5569; /* Apnar dashboard er text color */
+            font-family: 'DejaVu Sans', sans-serif;
+            color: #3e5569;
             font-size: 13px;
             margin: 0;
             padding: 0;
@@ -16,7 +16,7 @@
             padding: 30px;
         }
         .header {
-            border-bottom: 3px solid #7460ee; /* Primary Blue color from dashboard */
+            border-bottom: 3px solid #7460ee;
             padding-bottom: 20px;
             margin-bottom: 20px;
         }
@@ -56,7 +56,7 @@
             margin-top: 20px;
         }
         .table th {
-            background-color: #f8f9fa; /* Light header like your dashboard */
+            background-color: #f8f9fa;
             border: 1px solid #e9ecef;
             padding: 12px;
             font-weight: bold;
@@ -82,12 +82,6 @@
             font-size: 18px;
             font-weight: bold;
             color: #7460ee;
-        }
-        .badge {
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            color: #fff;
         }
         .footer {
             margin-top: 100px;

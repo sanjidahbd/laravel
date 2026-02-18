@@ -6,7 +6,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ReviewController;
-
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\SslCommerzPaymentController;
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +18,11 @@ use App\Http\Controllers\SslCommerzPaymentController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/about', [FrontendController::class, 'about'])->name('about');
+Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 
-Route::get('/', function () {
-    return view('fronted.pages.home');
-});
-
-
+Route::get('/menu', [FrontendController::class, 'menu'])->name('menu');
 
 Route::get('/dashboard', function () {
     return view('backend.dashboard');
@@ -41,6 +40,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reviews', [ReviewController::class, 'index'])->name('customer.reviews');
     // Step 1: My Orders Route (Ekhane add korun)
     Route::get('/my-orders', [CustomerController::class, 'myOrders'])->name('customer.orders');
+    // Invoice Route for Customer
+Route::get('/order/invoice/{id}', [CustomerController::class, 'orderInvoice'])->name('order.invoice');
     Route::post('/pay', [SslCommerzPaymentController::class, 'index'])->name('pay');
     // Final Order placement
     Route::post('/place-order', [CustomerController::class, 'placeOrder'])->name('order.place');

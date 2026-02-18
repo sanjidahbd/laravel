@@ -1,10 +1,10 @@
 <footer class="footer-section bg-title fix">
         <div class="footer-widgets-wrapper">
-            <div class="shape1 float-bob-y d-none d-xxl-block"><img src="{{url('')}}/assets/fronted/img/shape/footerShape1_1.png"
+            <div class="shape1 float-bob-y d-none d-xxl-block"><img src="{{url('')}}/assets/frontend/img/shape/footerShape1_1.png"
                     alt="shape"></div>
-            <div class="shape2 d-none d-xxl-block"><img src="{{url('')}}/assets/fronted/img/shape/footerShape1_2.png" alt="shape"></div>
-            <div class="shape3 d-none d-xxl-block"><img src="{{url('')}}/assets/fronted/img/shape/footerShape1_3.png" alt="shape"></div>
-            <div class="shape4  d-none d-xxl-block"><img src="{{url('')}}/assets/fronted/img/shape/footerShape1_4.png" alt="shape"></div>
+            <div class="shape2 d-none d-xxl-block"><img src="{{url('')}}/assets/frontend/img/shape/footerShape1_2.png" alt="shape"></div>
+            <div class="shape3 d-none d-xxl-block"><img src="{{url('')}}/assets/frontend/img/shape/footerShape1_3.png" alt="shape"></div>
+            <div class="shape4  d-none d-xxl-block"><img src="{{url('')}}/assets/frontend/img/shape/footerShape1_4.png" alt="shape"></div>
             <div class="container">
                 <div class="footer-top">
                     <div class="row gy-4">
@@ -43,7 +43,7 @@
                         <div class="single-footer-widget">
                             <div class="widget-head">
                                 <a href="index.html">
-                                    <img src="{{url('')}}/assets/fronted/img/logo/logoWhite.svg" alt="logo-img">
+                                    <img src="{{url('')}}/assets/frontend/img/logo/logoWhite.svg" alt="logo-img">
                                 </a>
                             </div>
                             <div class="footer-content">

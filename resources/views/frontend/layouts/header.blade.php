@@ -35,7 +35,7 @@
         <div class="main-header-wrapper">
             <div class="logo-image">
                 <a href="{{ url('/') }}">
-                    <img src="{{ asset('assets/fronted/img/logo/logo.svg') }}" alt="logo">
+                    <img src="{{ asset('assets/frontend/img/logo/logo.svg') }}" alt="logo">
                 </a>
             </div>
 
@@ -59,7 +59,7 @@
                                             <ul>
                                                 <li class="active"><a href="{{ url('/') }}">Home</a></li>
                                                 <li><a href="{{ url('/about') }}">About Us</a></li>
-                                                <li><a href="{{ route('customer.menu') }}">Food Menu</a></li>
+                                                <li><a href="{{ url('/menu') }}">Food Menu</a></li>
                                                 <li><a href="{{ url('/contact') }}">Contact</a></li>
                                                 
                                                 @guest

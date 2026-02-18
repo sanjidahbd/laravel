@@ -4,14 +4,23 @@
             <ul id="sidebarnav">
                 <li>
                     <div class="user-profile dropdown m-t-20">
-                        <div class="user-pic">
+<div class="user-pic">
                             <img src="{{url('')}}/assets/images/users/1.jpg" alt="users" class="rounded-circle img-fluid" />
                         </div>
                         <div class="user-content hide-menu m-t-10">
-                            <h5 class="m-b-10 user-name font-medium">Customer Name</h5>
-                            <a href="javascript:void(0)" title="Logout" class="btn btn-circle btn-sm">
+                            <h5 class="m-b-10 user-name font-medium">
+                                {{ Auth::user()->name ?? 'Customer' }}
+                            </h5>
+                            
+                            <a href="javascript:void(0)" title="Logout" 
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+                               class="btn btn-circle btn-sm">
                                 <i class="ti-power-off"></i>
                             </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </div>
                     </div>
                 </li>
@@ -30,11 +39,11 @@
 
                 <li class="sidebar-item">
                     <a href="{{ route('customer.orders') }}" class="sidebar-link">
-    <i class="mdi mdi-history"></i><span class="hide-menu"> My Orders </span>
-</a>
+                        <i class="mdi mdi-history"></i>
+                        <span class="hide-menu"> My Orders </span>
+                    </a>
                 </li>
-
             </ul>
         </nav>
-        </div>
+    </div>
 </aside>

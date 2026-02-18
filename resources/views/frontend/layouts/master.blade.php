@@ -74,7 +74,7 @@
                     <div class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
                         <div class="offcanvas__logo">
                             <a href="index.html">
-                                <img src="{{url('')}}/assets/fronted/img/logo/logo.svg" alt="logo-img">
+                                <img src="{{url('')}}/assets/frontend/img/logo/logo.svg" alt="logo-img">
                             </a>
                         </div>
                         <div class="offcanvas__close">
@@ -89,25 +89,25 @@
                     </p>
                     <div class="offcanvas-gallery-area d-none d-xl-block">
                         <div class="offcanvas-gallery-items">
-                            <a href="{{url('')}}/assets/fronted/img/header/01.jpg" class="offcanvas-image img-popup">
-                                <img src="{{url('')}}/assets/fronted/img/header/01.jpg" alt="gallery-img">
+                            <a href="{{url('')}}/assets/frontend/img/header/01.jpg" class="offcanvas-image img-popup">
+                                <img src="{{url('')}}/assets/frontend/img/header/01.jpg" alt="gallery-img">
                             </a>
-                            <a href="{{url('')}}/assets/fronted/img/header/02.jpg" class="offcanvas-image img-popup">
-                                <img src="{{url('')}}/assets/fronted/img/header/02.jpg" alt="gallery-img">
+                            <a href="{{url('')}}/assets/frontend/img/header/02.jpg" class="offcanvas-image img-popup">
+                                <img src="{{url('')}}/assets/frontend/img/header/02.jpg" alt="gallery-img">
                             </a>
-                            <a href="{{url('')}}/assets/fronted/img/header/03.jpg" class="offcanvas-image img-popup">
-                                <img src="{{url('')}}/assets/fronted/img/header/03.jpg" alt="gallery-img">
+                            <a href="{{url('')}}/assets/frontend/img/header/03.jpg" class="offcanvas-image img-popup">
+                                <img src="{{url('')}}/assets/frontend/img/header/03.jpg" alt="gallery-img">
                             </a>
                         </div>
                         <div class="offcanvas-gallery-items">
-                            <a href="{{url('')}}/assets/fronted/img/header/04.jpg" class="offcanvas-image img-popup">
-                                <img src="{{url('')}}/assets/fronted/img/header/04.jpg" alt="gallery-img">
+                            <a href="{{url('')}}/assets/frontend/img/header/04.jpg" class="offcanvas-image img-popup">
+                                <img src="{{url('')}}/assets/frontend/img/header/04.jpg" alt="gallery-img">
                             </a>
-                            <a href="{{url('')}}/assets/fronted/img/header/05.jpg" class="offcanvas-image img-popup">
-                                <img src="{{url('')}}/assets/fronted/img/header/05.jpg" alt="gallery-img">
+                            <a href="{{url('')}}/assets/frontend/img/header/05.jpg" class="offcanvas-image img-popup">
+                                <img src="{{url('')}}/assets/frontend/img/header/05.jpg" alt="gallery-img">
                             </a>
-                            <a href="{{url('')}}/assets/fronted/img/header/06.jpg" class="offcanvas-image img-popup">
-                                <img src="{{url('')}}/assets/fronted/img/header/06.jpg" alt="gallery-img">
+                            <a href="{{url('')}}/assets/frontend/img/header/06.jpg" class="offcanvas-image img-popup">
+                                <img src="{{url('')}}/assets/frontend/img/header/06.jpg" alt="gallery-img">
                             </a>
                         </div>
                     </div>
@@ -172,13 +172,13 @@
     <div class="offcanvas__overlay"></div>
 
     <!-- Header Section Start -->
-       @include("fronted.layouts.header") 
+       @include("frontend.layouts.header") 
     <!-- Search Area Start -->
   @yield('content')
 
     <!-- Footer Section    S T A R T -->
     
-  @include("fronted.layouts.footer") 
+  @include("frontend.layouts.footer") 
 @yield('script')
 
 </body>
